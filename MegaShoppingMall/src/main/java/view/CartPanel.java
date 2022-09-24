@@ -48,7 +48,7 @@ public class CartPanel extends JPanel {
         this.add(header, BorderLayout.NORTH);
     }
 
-    public void updateDisplay(Cart cart) {
+    public void updateDisplay(List<CartItem> items) {
         this.removeAll();
 
         addHeader();
@@ -56,15 +56,15 @@ public class CartPanel extends JPanel {
         JPanel recordPanel = new JPanel(new GridLayout(0, 1));
         recordPanel.setOpaque(false);
 
-        for (CartItem cartItem : cart.items()) {
+        for (CartItem cartItem : items) {
             addCartItemPanel(cartItem);
             addButtonPanel(recordPanel, cartItem);
         }
 
         addScrollPane(recordPanel);
         addControlPanel();
-        addCartDetail(cart);
-        addOrderButton(cart);
+        addCartDetail(items);
+        addOrderButton(items);
 
         update();
     }
@@ -81,8 +81,8 @@ public class CartPanel extends JPanel {
         CartItemPanel.add(CartItemInformation, BorderLayout.CENTER);
     }
 
-    private void addCartDetail(Cart cart) {
-        List<CartItem> cartItems = cart.items();
+    private void addCartDetail(List<CartItem> items) {
+        List<CartItem> cartItems = items;
 
         int sum = cartItems.stream()
                 .map(CartItem::price)
@@ -160,15 +160,15 @@ public class CartPanel extends JPanel {
         buttonPanel.add(delete);
     }
 
-    private void addOrderButton(Cart cart) {
+    private void addOrderButton(List<CartItem> items) {
         JButton orderAll = new JButton("요청 하기");
         orderAll.addActionListener(event -> {
-            if (cart.items().size() == 0) {
+            if (items.size() == 0) {
                 return;
             }
 
             try {
-                if (cartController.orderAll(cart).isEmpty()) {
+                if (cartController.orderAll(items).isEmpty()) {
                     final JDialog frame = new JDialog(new Frame(), "Error", true);
 
                     JPanel error = new JPanel();

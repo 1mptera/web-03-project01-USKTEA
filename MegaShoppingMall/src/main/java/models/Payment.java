@@ -40,8 +40,8 @@ public class Payment {
         return order;
     }
 
-    public Optional<Order> purchase(Cart cart, User user) throws IOException {
-        List<CartItem> cartItems = cart.items();
+    public Optional<Order> purchase(List<CartItem> items, User user) throws IOException {
+        List<CartItem> cartItems = items;
 
         int sum = cartItems.stream()
                 .map(CartItem::price)

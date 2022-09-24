@@ -1,18 +1,21 @@
 package repository;
 
 import infrastructure.FileManager;
+import models.ImagePath;
+import models.Service;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 
 public class ImagePathRepository {
     FileManager fileManager;
+    ImagePath imagePath;
 
-    public ImagePathRepository() {
+    public ImagePathRepository() throws FileNotFoundException {
         fileManager = new FileManager("imagePaths.csv");
+        imagePath = fileManager.imagePaths();
     }
 
-    public HashMap<String, String> paths() throws FileNotFoundException {
-        return fileManager.imagePaths();
+    public String getPath(Service service) {
+        return imagePath.path(service);
     }
 }

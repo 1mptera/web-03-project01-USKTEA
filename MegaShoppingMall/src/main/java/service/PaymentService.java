@@ -7,6 +7,7 @@ import models.Payment;
 import models.Service;
 import models.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class PaymentService {
         return new Payment().purchase(cartItem, user);
     }
 
-    public Optional<Order> purchase(User user, Cart cart) throws IOException {
-        return new Payment().purchase(cart, user);
+    public Optional<Order> purchase(User user, List<CartItem> items) throws IOException {
+        return new Payment().purchase(items, user);
     }
 }

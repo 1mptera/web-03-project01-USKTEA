@@ -16,16 +16,16 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.Optional;
 
 public class UserPanel extends JPanel {
     private UserPanelController userPanelController;
     private Optional<User> session;
-    private HashMap<String, String> imagePaths;
+    private ImagePathController imagePathController;
 
     public UserPanel(UserPanelController userPanelController) throws FileNotFoundException {
         this.userPanelController = userPanelController;
+        this.imagePathController = new ImagePathController();
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
 
@@ -42,13 +42,8 @@ public class UserPanel extends JPanel {
             User user = session.get();
 
             initHeader();
-            getImagePath();
             initServicePanel(user);
         }
-    }
-
-    private void getImagePath() throws FileNotFoundException {
-        this.imagePaths = new ImagePathController().getPaths();
     }
 
     private void initHeader() {
@@ -70,7 +65,7 @@ public class UserPanel extends JPanel {
         servicePanel.setLayout(new GridLayout(0, 3));
 
         for (Service service : userPanelController.myService(user)) {
-            String path = imagePaths.get(service.name());
+            String path = imagePathController.getPath(service);
             ImageIcon imageIcon = new ImageIcon(path);
             JButton userService = new JButton(imageIcon);
 

@@ -2,6 +2,7 @@ package infrastructure;
 
 import models.Cart;
 import models.CartItem;
+import models.ImagePath;
 import models.Mall;
 import models.Order;
 import models.Service;
@@ -294,7 +295,7 @@ public class FileManager {
         return services;
     }
 
-    public HashMap<String, String> imagePaths() throws FileNotFoundException {
+    public ImagePath imagePaths() throws FileNotFoundException {
         HashMap<String, String> imagePaths = new HashMap<>();
 
         scanner = new Scanner(file);
@@ -308,6 +309,6 @@ public class FileManager {
             imagePaths.put(image, path);
         }
 
-        return imagePaths;
+        return new ImagePath(imagePaths);
     }
 }

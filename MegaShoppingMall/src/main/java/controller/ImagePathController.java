@@ -1,14 +1,18 @@
 package controller;
 
+import models.Service;
 import service.ImagePathService;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 
 public class ImagePathController {
-    public ImagePathController() {}
+    private ImagePathService imagePathService;
 
-    public HashMap<String, String> getPaths() throws FileNotFoundException {
-        return new ImagePathService().getPaths();
+    public ImagePathController() throws FileNotFoundException {
+        this.imagePathService = new ImagePathService();
+    }
+
+    public String getPath(Service service) {
+        return imagePathService.getPath(service);
     }
 }

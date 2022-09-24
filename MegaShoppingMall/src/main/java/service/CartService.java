@@ -9,6 +9,7 @@ import repository.CartRepository;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public class CartService {
     private CartRepository cartRepository;
@@ -17,7 +18,7 @@ public class CartService {
         this.cartRepository = new CartRepository();
     }
 
-    public Cart getCart(User user) throws FileNotFoundException {
+    public List<CartItem> getCart(User user) throws FileNotFoundException {
         return cartRepository.getCart(user);
     }
 

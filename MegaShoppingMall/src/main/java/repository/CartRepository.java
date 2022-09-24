@@ -8,16 +8,20 @@ import models.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public class CartRepository {
     FileManager fileManager;
+    Cart cart;
 
     public CartRepository() {
         this.fileManager = new FileManager("cart.csv");
     }
 
-    public Cart getCart(User user) throws FileNotFoundException {
-        return fileManager.getCart(user);
+    public List<CartItem> getCart(User user) throws FileNotFoundException {
+        cart = fileManager.getCart(user);
+
+        return cart.items();
     }
 
     public void add(Service service, User user) throws IOException {

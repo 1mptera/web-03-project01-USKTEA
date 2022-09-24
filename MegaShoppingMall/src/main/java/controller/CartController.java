@@ -10,6 +10,7 @@ import service.PaymentService;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class CartController {
@@ -21,7 +22,7 @@ public class CartController {
         this.user = user;
     }
 
-    public Cart getCart() throws FileNotFoundException {
+    public List<CartItem> getCart() throws FileNotFoundException {
         return cartService.getCart(user);
     }
 
@@ -39,8 +40,8 @@ public class CartController {
         return order;
     }
 
-    public Optional<Order> orderAll(Cart cart) throws IOException {
-        Optional<Order> order = new PaymentService().purchase(user, cart);
+    public Optional<Order> orderAll(List<CartItem> items) throws IOException {
+        Optional<Order> order = new PaymentService().purchase(user, items);
 
         return order;
     }
